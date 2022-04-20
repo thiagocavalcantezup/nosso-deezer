@@ -1,5 +1,7 @@
 package br.com.zup.edu.nossodezeer.musica;
 
+import javax.transaction.Transactional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -7,26 +9,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.transaction.Transactional;
-
 @RestController
 public class IncrementaOuvintesController {
-    private final MusicaRepository repository;
 
-    public IncrementaOuvintesController(MusicaRepository repository) {
-        this.repository = repository;
+    private final MusicaRepository musicaRepository;
+
+    public IncrementaOuvintesController(MusicaRepository musicaRepository) {
+        this.musicaRepository = musicaRepository;
     }
 
     @PatchMapping("/musicas/{id}/ouvintes")
     @Transactional
-    public ResponseEntity<?> incrementa(@PathVariable Long id){
-        Musica musica = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Musica nao cadastrada no sistema."));
+    public ResponseEntity<?> incrementa(@PathVariable Long id) {
+        Musica musica = musicaRepository.findById(id)
+                                        .orElseThrow(
+                                            () -> new ResponseStatusException(
+                                                HttpStatus.NOT_FOUND,
+                                                "Musica nao cadastrada no sistema."
+                                            )
+                                        );
 
         musica.aumentarOuvinte();
 
-        repository.save(musica);
+        musicaRepository.save(musica);
 
         return ResponseEntity.noContent().build();
     }
+
 }

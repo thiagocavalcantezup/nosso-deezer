@@ -1,12 +1,18 @@
 package br.com.zup.edu.nossodezeer.musica;
 
-import javax.persistence.*;
+import static java.time.LocalDateTime.now;
+
 import java.time.LocalDateTime;
 
-import static java.time.LocalDateTime.now;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Musica {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,18 +30,15 @@ public class Musica {
 
     private LocalDateTime atualiazadoEm = now();
 
+    /**
+     * @deprecated Construtor de uso exclusivo do Hibernate
+     */
+    @Deprecated
+    public Musica() {}
 
     public Musica(String nome) {
         this.nome = nome;
     }
-
-    /**
-     * @deprecated construtor de uso exclusivo
-     */
-    @Deprecated
-    public Musica() {
-    }
-
 
     public void aumentarOuvinte() {
         this.numeroDeOuvintes++;
@@ -44,5 +47,5 @@ public class Musica {
     public void aumentarLikes() {
         this.quantidadeLikes++;
     }
-}
 
+}
