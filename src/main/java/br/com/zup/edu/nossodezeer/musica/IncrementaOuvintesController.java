@@ -31,8 +31,6 @@ public class IncrementaOuvintesController {
 
         musica.aumentarOuvinte();
 
-        musicaRepository.save(musica);
-
         return ResponseEntity.noContent().build();
     }
 

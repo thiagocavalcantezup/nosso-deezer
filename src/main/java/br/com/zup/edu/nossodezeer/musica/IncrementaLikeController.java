@@ -31,8 +31,6 @@ public class IncrementaLikeController {
 
         musica.aumentarLikes();
 
-        musicaRepository.save(musica);
-
         return ResponseEntity.noContent().build();
     }
 
