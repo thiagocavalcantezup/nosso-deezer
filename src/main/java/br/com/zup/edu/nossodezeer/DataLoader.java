@@ -3,6 +3,7 @@ package br.com.zup.edu.nossodezeer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import br.com.zup.edu.nossodezeer.musica.Musica;
 import br.com.zup.edu.nossodezeer.musica.MusicaRepository;
 
 @Component
@@ -22,7 +23,9 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void load() {
+        Musica musica = new Musica("Lilypad");
 
+        musicaRepository.save(musica);
     }
 
 }
